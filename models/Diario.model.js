@@ -20,7 +20,7 @@ const diarioSchema = new Schema(
     },
     emoji: {
         type: String,
-        enum: ["diferentes emoticonos"],
+        enum: ["😊", "😳", "🤦‍♀️", "🤕", "🥰"],
         required: true
     },
     user: {
