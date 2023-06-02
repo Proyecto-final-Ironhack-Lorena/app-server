@@ -20,7 +20,7 @@ router.post("/signup", async (req, res, next) => {
   }
 
   const regexPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
-  if (regexPattern.test(req.body.password) === false) {
+  if (regexPattern.test(password) === false) {
     res.status(400).json({
         errorMessage:"Tu contraseña necesita al menos una mayúscula, un caracter especial y una longitud de ocho caracteres."})
     return
@@ -30,6 +30,12 @@ router.post("/signup", async (req, res, next) => {
     const foundUser = await User.findOne({email: email})
     if(foundUser) {
         res.status(400).json({errorMessage: "Este email ya ha sido registrado"})
+        return;
+    }
+
+    const foundUserByUsername = await User.findOne({username: username})
+    if(foundUserByUsername) {
+        res.status(400).json({errorMessage: "Este nombre de usuario ya ha sido registrado"})
         return;
     }
 
