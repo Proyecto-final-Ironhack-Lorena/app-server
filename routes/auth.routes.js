@@ -96,7 +96,7 @@ router.post("/login", async (req, res, next) => {
             { algorithm: "HS256", expiresIn: "14d"}
         )
 
-        res.json({tokenAuth: tokenAuth})
+        res.json({tokenAuth: tokenAuth, email: email})
 
 
       } catch(error) {

@@ -3,12 +3,12 @@ const {Router} = require('express')
 const router = Router();
 
 //GET "/api/user/:username" => Para obtener los datos de un user
-router.get("/:username", async (req, res, next) => {
-    const username = req.params.username;
+router.get("/:email", async (req, res, next) => {
+    const email = req.params.email;
 
     try {
 
-        const responseUser = await User.findOne({ username: username})
+        const responseUser = await User.findOne({ email: email})
         res.json(responseUser)
 
 
@@ -19,13 +19,13 @@ router.get("/:username", async (req, res, next) => {
 })
 
 // PUT "/api/user/:username" => Actualiza los datos de un usuario
-router.put("/:username", async (req, res, next) => {
+router.put("/:email", async (req, res, next) => {
     const { image, weekDays, babyName } = req.body;
-    const username = req.params.username;
+    const email = req.params.email;
 
     try{
 
-        await User.findOneAndUpdate({username}, {
+        await User.findOneAndUpdate({email}, {
             image,
             weekDays,
             babyName

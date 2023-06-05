@@ -8,11 +8,11 @@ const router = Router()
 
 
 //POST "/api/questions" => Registra una nueva pregunta
-router.post('/:username', async (req, res, next) => {
+router.post('/:email', async (req, res, next) => {
         const { title, description, kind } = req.body
-        const { username } = req.params;
+        const { email } = req.params;
         try {
-            const user = await User.findOne({username});
+            const user = await User.findOne({email});
             await Question.create({
                 title,
                 description,
@@ -29,7 +29,7 @@ router.post('/:username', async (req, res, next) => {
 
 
 
-//GET "/questions/:questionsId" => obtiene todas las preguntas
+//GET "/questions" => obtiene todas las preguntas
 router.get('/', async (req, res, next) => {
 
     try {
@@ -88,9 +88,12 @@ router.post("/:questionId/answer", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
 
     try{
-       const questionAndAnswer = await Answer.find({question: req.params.id}).populate("question") 
+       let response = await Answer.find({question: req.params.id}).populate("question");
+       if (response.length === 0) {
+            response = [{question: await Question.findById(req.params.id)}];
+       }
     //    const question = questionAndAnswer[0].question;
-       res.json(questionAndAnswer)
+       res.json(response)
 
     } catch(error) {
         next(error)
