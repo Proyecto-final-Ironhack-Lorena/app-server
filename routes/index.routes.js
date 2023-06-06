@@ -10,4 +10,10 @@ router.use("/user", require("./profile.routes"))
 
 router.use("/questions", require("./questionsAndAnswer.routes"))
 
+router.use("/diario", require("./diary.routes"))
+
+router.use("/list", require("./list.routes"))
+
+
+
 module.exports = router;
