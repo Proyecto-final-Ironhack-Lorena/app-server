@@ -58,22 +58,23 @@ router.get("/filter/:filter", async (req, res, next) => {
        res.json(response)
 
     } catch(error) {
-
+        next(error)
     }
 })
 
 
 // POST "/questions/:questionId/answer" => Registra una nueva repuesta a una pregunta
-router.post("/:questionId/answer", async (req, res, next) => {
+router.post("/:questionId/:email/answer", async (req, res, next) => {
     const { description } = req.body
-    const { questionId } = req.params 
+    const { questionId, email } = req.params 
 
     try {
 
-        const question = await Question.findById(questionId).populate("user")
+        const question = await Question.findById(questionId)
+        const user = await User.findOne({ email: email})
         await Answer.create({
             description,
-            user: question.user,
+            user: user,
             question
         })
 
@@ -88,7 +89,10 @@ router.post("/:questionId/answer", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
 
     try{
-       let response = await Answer.find({question: req.params.id}).populate("question");
+       let response = await Answer.find({question: req.params.id}).populate("question").populate("user").populate({
+        path: "question",
+        populate: "user"
+       });
        if (response.length === 0) {
             response = [{question: await Question.findById(req.params.id)}];
        }

@@ -3,7 +3,7 @@ const { Schema, model } = require("mongoose");
 const diarioSchema = new Schema(
   {
     date: {
-        type: String,
+        type: Date,
         required: true
     },
     title: {
