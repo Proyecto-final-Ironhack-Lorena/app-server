@@ -38,7 +38,7 @@ router.get('/:email', async (req, res, next) => {
 })
 
 //GET "/diario/:id" => Obtiene una sola entrada del diario de un usuario
-router.get('/:id', async (req, res, next) => {
+router.get('/:email/:id', async (req, res, next) => {
     const { id } = req.params;
     try{
         let response = await Diario.findById(id)
