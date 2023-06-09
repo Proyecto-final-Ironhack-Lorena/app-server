@@ -94,7 +94,7 @@ router.get("/:id", async (req, res, next) => {
         populate: "user"
        });
        if (response.length === 0) {
-            response = [{question: await Question.findById(req.params.id)}];
+            response = [{question: await Question.findById(req.params.id).populate('user')}];
        }
     //    const question = questionAndAnswer[0].question;
        res.json(response)
