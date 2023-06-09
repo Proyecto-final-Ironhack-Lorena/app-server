@@ -9,7 +9,6 @@ const userAuthenticated = jwt ({
     requestProperty: "payload", //recibe el pyload después de validar el token
     getToken: (req) => {
         if(!req.headers || !req.headers.authorization) {
-            console.log("sin tokeeeeeeeeen");
             return null
         }
 
