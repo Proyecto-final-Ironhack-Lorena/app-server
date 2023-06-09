@@ -11,7 +11,7 @@ const questionSchema = new Schema({
   },
   kind: {
     type: String,
-    enum: ["Síntoma", "¿Puedo comerlo?", "Dolor"],
+    enum: ["Síntoma", "¿Puedo comerlo?", "Dolor", "Consulta"],
     required: true,
   },
   user: {
